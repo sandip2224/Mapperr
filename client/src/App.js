@@ -18,10 +18,7 @@ function App() {
   const currentUser = 'jane'
   const [pins, setPins] = useState([])
   const [currentPlaceId, setCurrentPlaceId] = useState(null)
-  // const [currentPlaceId1, setCurrentPlaceId1] = useState(null)
   const [loading, setLoading] = useState(true)
-
-  // const [showPopup, setShowPopup] = useState(true);
 
   useEffect(() => {
     const getPins = async () => {
