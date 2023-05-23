@@ -15,10 +15,13 @@ function App() {
     longitude: 17,
     zoom: 4
   })
+  const currentUser = 'jane'
   const [pins, setPins] = useState([])
+  const [currentPlaceId, setCurrentPlaceId] = useState(null)
+  // const [currentPlaceId1, setCurrentPlaceId1] = useState(null)
   const [loading, setLoading] = useState(true)
 
-  const [showPopup, setShowPopup] = useState(true);
+  // const [showPopup, setShowPopup] = useState(true);
 
   useEffect(() => {
     const getPins = async () => {
@@ -35,8 +38,14 @@ function App() {
     getPins();
   }, []);
 
+  const handleMarkerClick = (id, lat, lng) => {
+    console.log('Marker clicked!')
+    setCurrentPlaceId(id)
+    // setCurrentPlaceId1(id)
+  }
 
-  if (loading) return <>Loading...</>
+
+  if (loading) return <div className="App">Loading...</div>
 
   return (
     <div className="App">
@@ -54,14 +63,17 @@ function App() {
           <>
             <Marker longitude={p.lng} latitude={p.lat} anchor='bottom'>
               <RoomIcon
-                style={{ fontSize: viewport.zoom * 7, color: 'slateblue' }}
-              // onClick={() => handleMarkerClick(p._id, p.lat, p.long)}
+                style={{ fontSize: viewport.zoom * 8, cursor: 'pointer', color: p.username === currentUser ? 'tomato' : 'slateblue' }}
+                onClick={() => handleMarkerClick(p._id, p.lat, p.lng)}
               />
             </Marker>
-            {showPopup && (
-              <Popup longitude={p.lng} latitude={p.lat}
-                anchor='left'
-                onClose={() => setShowPopup(false)}>
+            {console.log(p._id === currentPlaceId)}
+            {p._id === currentPlaceId &&
+              (<Popup longitude={p.lng} latitude={p.lat} key={p._id} anchor='left'
+                closeButton={true}
+                closeOnClick={false}
+                onClose={() => setCurrentPlaceId(null)}
+              >
                 <div className="card">
                   <label>Place</label>
                   <h4 className='place'>{p.title}</h4>
