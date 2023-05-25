@@ -4,6 +4,9 @@ import StarIcon from '@mui/icons-material/Star'
 import StarBorderIcon from '@mui/icons-material/StarBorder'
 import RoomIcon from '@mui/icons-material/Room'
 
+import Register from './components/Register';
+import Login from "./components/Login";
+
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -12,7 +15,6 @@ import axios from 'axios'
 
 import './app.css'
 import 'mapbox-gl/dist/mapbox-gl.css';
-import Register from './components/Register';
 
 function App() {
   const myStorage = window.localStorage;
@@ -25,7 +27,7 @@ function App() {
 
   const [currentUser, setCurrentUser] = useState(myStorage.getItem('user'));
   const [pins, setPins] = useState([])
-  const [currentPlaceId, setCurrentPlaceId] = useState(null)
+  const [currentPlaceId, setCurrentPlaceId] = useState(null);
   const [newPlace, setNewPlace] = useState(null);
   const [loading, setLoading] = useState(true)
 
@@ -43,7 +45,8 @@ function App() {
         setPins(allPins.data.pins);
         toast.success('Fetched all pins!')
         setLoading(false)
-      } catch (err) {
+      }
+      catch (err) {
         console.log(err);
         toast.error('Could not fetch pins!')
         setLoading(false);
@@ -192,12 +195,11 @@ function App() {
         )}
         {showRegister && <Register setShowRegister={setShowRegister} />}
         {showLogin && (
-          <></>
-          // <Login
-          //   setShowLogin={setShowLogin}
-          //   setCurrentUsername={setCurrentUser}
-          //   myStorage={myStorage}
-          // />
+          <Login
+            setShowLogin={setShowLogin}
+            setCurrentUsername={setCurrentUser}
+            myStorage={myStorage}
+          />
         )}
       </Map >
       <ToastContainer
