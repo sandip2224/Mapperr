@@ -39,7 +39,7 @@ function Register({ setShowRegister }) {
 		<div className='registerContainer'>
 			<div className='logo'>
 				<RoomIcon className='logoIcon' />
-				<span>LamaPin</span>
+				<span>Mapperr</span>
 			</div>
 			<form onSubmit={handleSubmit}>
 				<input
